@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "467b9890-9e94-40d0-8b78-dc656ffffea9",
+		"name": "RRT MEDICAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18475244"
+	},
+	"item": [
+		{
+			"name": "Manual",
+			"item": [
+				{
+					"name": "http://localhost:4600/manual Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Bajas de personal\",\r\n    \"Area\": \"Recursos Humanos\",\r\n    \"Folio\": \"3423216\",\r\n    \"ImgUrl\": \"data:image/png;base64,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\" \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/api/manual",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"api",
+								"manual"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/manual/:manualId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Bajas de personal\",\r\n    \"Area\": \"Recursos Humanos\",\r\n    \"Folio\": \"3423216\",\r\n    \"ImgUrl\": \"data:image/png;base64,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\" \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/manual",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"manual"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4600/manual",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Bajas de personal resagados user\"\r\n  \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/api/manual/63eea9affe2504dfa43ada86",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"api",
+								"manual",
+								"63eea9affe2504dfa43ada86"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4600/manual Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Bajas de personal\",\r\n    \"Area\": \"Recursos Humanos\",\r\n    \"Folio\": \"3423216\",\r\n    \"ImgUrl\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwwL7eVIdQ3jccfefnYGowQYn7Eh7pCqiIFw&usqp=CAU\" \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/api/manual/63ee70642e6a9e1d642f37da",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"api",
+								"manual",
+								"63ee70642e6a9e1d642f37da"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "http://localhost:4600/manual Copy 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Jaime Agular Nadf\",\r\n    \"employenumber\":\"12\",\r\n    \"password\":\"USR9RRT\"\r\n    \r\n    \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/api/auth/singup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"api",
+								"auth",
+								"singup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4600/manual Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"employenumber\":\"501\",\r\n    \"password\":\"$2a$10$j3/C3VZNqms8ID2jQg/wyOprEjQjPIbUzLB.Zi6W.7O7.Nrq/.o/G\"\r\n    \r\n    \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/api/auth/singin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"api",
+								"auth",
+								"singin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:4600/manual Copy 4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"employenumber\":\"45\",\r\n    \"password\":\"CU1RRT\"\r\n    \r\n    \r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:4600/api/auth/singin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4600",
+							"path": [
+								"api",
+								"auth",
+								"singin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
