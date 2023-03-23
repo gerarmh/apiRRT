@@ -7,7 +7,7 @@ import modelRoles from "../models/model.roles";
 export const singup = async (req, res) => {
   const { username, employenumber, password, rol } = req.body;
 
-  console.log(req.body);
+ // console.log(req.body);
 
   const newuser = new user({
     username,
@@ -24,7 +24,7 @@ export const singup = async (req, res) => {
   }
 
   const saveduser = await newuser.save();
-  console.log(saveduser);
+  //console.log(saveduser);
 
   const token = jwt.sign({ id: saveduser._id }, config.SECRET, {
     expiresIn: 86400, //1 day
@@ -47,7 +47,7 @@ export const singin = async (req, res) => {
     );
 
   if (!matchPassword)
-    return res.status(401).json({
+    return res.status(403).json({
       token: null,
       message: "Invalid Password",
     });
@@ -55,9 +55,9 @@ export const singin = async (req, res) => {
     expiresIn: 86400,
   });
 
-  console.log(userfound.password)
-  console.log(req.body.password)
-  console.log(matchPassword)
+//  console.log(userfound.password)
+//  console.log(req.body.password)
+//  console.log(matchPassword)
   res.json({ token})
   
 };

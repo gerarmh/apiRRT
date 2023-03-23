@@ -35,7 +35,7 @@ userschema.statics.encryptPassword = async (password) => {
   };
   
   userschema.statics.comparePassword = async (password, receivedPassword) => {
-    return await bcrypt.compare(password, receivedPassword)
+    return await bcrypt.compareSync(password, receivedPassword)
   }
   
   userschema.pre("save", async function (next) {
@@ -43,8 +43,8 @@ userschema.statics.encryptPassword = async (password) => {
     if (!user.isModified("password")) {
       return next();
     }
-    const hash = await bcrypt.hash(user.password, 10);
-    user.password = hash;
-    next();
+    //const hash = await bcrypt.hash(user.password, 10);
+    //user.password = hash;
+    //next();
   })
 export default model('user', userschema);

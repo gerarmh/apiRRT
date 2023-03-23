@@ -9,9 +9,9 @@ if (count > 0)return;
 
 const values = await Promise.all([
     
-    new modelroles({name:'SuperUser'}).save(),
-    new modelroles({name:'Revisor'}).save(),
-    new modelroles({name:'CommonUser'}).save(),
+    new modelroles({name:'SuperUser'}).save(),//IsSuper
+    new modelroles({name:'Revisor'}).save(),//IsRevi
+    new modelroles({name:'CommonUser'}).save(),//IsCommon
     
       
 ]);
