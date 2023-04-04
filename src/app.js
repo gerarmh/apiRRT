@@ -2,6 +2,7 @@ import express from "express"; //modules exports
 import morgan from "morgan";
 import pkgs from "../package.json";
 import Manualroutes from "./routes/manual.routes";
+import UserRoutes from './routes/user.routes';
 import Authroutes from "./routes/auth.routes";
 import { createRoles } from "./libs/InitilUSP";
 const app = express(); //require the framework
@@ -25,5 +26,7 @@ app.get("/", (req, res) => {
 app.use("/api/manual", Manualroutes);
 
 app.use("/api/auth", Authroutes);
+
+app.use("/api/users", UserRoutes);
 
 export default app; //require the route

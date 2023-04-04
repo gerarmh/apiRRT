@@ -17,9 +17,10 @@ export const getmanuals = async (req, res) => {
   res.json(manuals);
 };
 export const getmanualById = async (req, res) => {
-  const manual = await manual.findById(req.params.manualId);
-  res.status(200).json(manual);
+  const manuals = await manual.findById(req.params.manualId);
+  res.status(200).json(manuals);
 };
+
 export const updatemanualById = async (req, res) => {
   const Updatedmanual = await manual.findByIdAndUpdate(
     req.params.manualId,

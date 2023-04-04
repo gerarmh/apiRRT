@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as Manualctrl from '../Controllers/Manual.controllers'
+import * as Manualctrl from "../Controllers/Manual.controllers"
 import * as AuthV from "../middlewares/authVerify"
 const router = Router()
 
@@ -11,7 +11,7 @@ router.get('/', Manualctrl.getmanualbyOCR);
 
 router.post('/', [AuthV.verifytoken, AuthV.isSuper ] , Manualctrl.createmanual);
 
-router.put('/:manualId', [AuthV.verifytoken, AuthV.isSuper ] , Manualctrl.updatemanualById);
+router.put('/:manualId', [AuthV.verifytoken, AuthV.isBoth ] , Manualctrl.updatemanualById);
 
 router.delete('/:manualId', [AuthV.verifytoken, AuthV.isSuper ], Manualctrl.deletemanualById);
 

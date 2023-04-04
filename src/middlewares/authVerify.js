@@ -23,28 +23,53 @@ return res.status(401).json({ message: 'Unautorized Transite of this Route'})
 }
 };
 
-export const isSuper = async (req, res, next) => {
+export const isBoth = async (req, res, next) => {
     
         
     const userS = await user.findById(req.UserId)
     const roles = await Rol.find({_id: {$in:userS.rol} });
     for (let i = 0; i < roles.length; i++) {
-     if (roles[i].name === "SuperUser") {
+     if ((roles[i].name === "SuperUser")||(roles[i].name === "Revisor")) {
        next();
        return;
        
      }
    //  console.log(userS.rol);
           }
-    return res.status(403).json({message:'outside your user limits'});
+    return res.status(403).json({message:'outside of your user limits'});
       
     //return res.status(500).send({ message: "error" });
     
 };
 
 export const isRevi = async (req, res, next) => {
+  const userR = await user.findById(req.UserId)
+  const roles = await Rol.find({_id:{$in: user.roles}})
+  for (let i = 0; i < roles.length; i++) {
+    if (roles[i].name === "Revisor") {
+      next();
+    }
+      return;
+    }
+    return res.status(502).send({ message: "outside of your user limits" });
+  }
+
+
   
+
+
+
+export const isSuper = async (req, res, next) => {
+  const userS = await user.findById(req.UserId)
+  const roles = await Rol.find({_id: {$in:userS.rol} });
+  for (let i = 0; i < roles.length; i++) {
+   if (roles[i].name === "SuperUser") {
+     next();
+     return;
+     
+   }
+ //  console.log(userS.rol);
+        }
+  return res.status(403).json({message:'outside of your user limits'});
+    
 }
-
-
-export const isCommon = async (req, res, next) => {}

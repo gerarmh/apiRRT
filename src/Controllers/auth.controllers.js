@@ -55,6 +55,8 @@ export const singin = async (req, res) => {
     expiresIn: 86400,
   });
 
+
+  
 //  console.log(userfound.password)
 //  console.log(req.body.password)
 //  console.log(matchPassword)
