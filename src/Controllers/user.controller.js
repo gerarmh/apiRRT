@@ -16,6 +16,16 @@ export const createUser = async (req, res) => {
       password,
       rol: rolesFound.map((Rol) => Rol._id),
     });
+    
+    //predeterminated user
+
+    if (rol) {
+      const foundrol = await modelroles.find({ name: { $in: rol } });
+      newuser.rol = foundrol.map((Rol) => Rol._id);
+    } else {
+      const Rol = await modelroles.findOne({ name: "CommonUser" });
+      newuser.rol = [Rol._id];
+    }
 
     // encrypting password
     newuser.password = await user.encryptPassword(newuser.password);

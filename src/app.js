@@ -7,9 +7,12 @@ import Authroutes from "./routes/auth.routes";
 import { createRoles } from "./libs/InitilUSP";
 const app = express(); //require the framework
 createRoles();
-
+const cors = require('cors');
 app.set("pkgs", pkgs);
 
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 app.use(express.json());
 createRoles();
 app.use(morgan("dev")); //use morgan for requests of the server

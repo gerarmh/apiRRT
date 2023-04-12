@@ -68,7 +68,7 @@ export const isSuper = async (req, res, next) => {
      return;
      
    }
- //  console.log(userS.rol);
+
         }
   return res.status(403).json({message:'outside of your user limits'});
     
