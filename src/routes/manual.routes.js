@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import * as Manualctrl from "../Controllers/Manual.controllers"
 import * as AuthV from "../middlewares/authVerify"
-import {Mduplicity} from '../middlewares/manualV'
 import multer from 'multer';
 const uploads = multer({ dest: '../uploads' });
 const router = Router()
@@ -18,7 +17,7 @@ const express = require('express');
 const pdfController = require('../Controllers/Manual.controllers');
 
 // define un endpoint para guardar los archivos PDF
-router.post('/', [AuthV.verifytoken, AuthV.isBoth, Mduplicity],  uploads.single('archivo'),pdfController.uploadPDF);
+router.post('/', [AuthV.verifytoken, AuthV.isBoth],  uploads.single('archivo'),pdfController.uploadPDF);
 
 module.exports = router;
 
