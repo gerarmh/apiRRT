@@ -1,21 +1,30 @@
-import express from "express"; //modules exports
+import express from "express";
 import morgan from "morgan";
 import pkgs from "../package.json";
 import Manualroutes from "./routes/manual.routes";
 import UserRoutes from './routes/user.routes';
 import Authroutes from "./routes/auth.routes";
 import { createRoles } from "./libs/InitilUSP";
-const app = express(); //require the framework
+import cors from 'cors';
+import multer from 'multer';
+const PDFDocument = require('pdfkit');
+
+const app = express();
 createRoles();
-const cors = require('cors');
 app.set("pkgs", pkgs);
+
+const storage = multer.memoryStorage();
+const uploads = multer({ storage: storage });
+
+app.use(express.json());
 
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
-app.use(express.json());
+
 createRoles();
-app.use(morgan("dev")); //use morgan for requests of the server
+
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.json({
@@ -32,4 +41,4 @@ app.use("/api/auth", Authroutes);
 
 app.use("/api/users", UserRoutes);
 
-export default app; //require the route
+export default app;

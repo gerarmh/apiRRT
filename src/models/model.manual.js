@@ -1,15 +1,12 @@
-import {Schema, model} from 'mongoose'
+import mongoose from 'mongoose';
 
-const Manualeschema = new Schema({
-    Name: String,
-    Area: String,
-    Folio: Number,
-    ImgUrl:String 
+// define el esquema para los documentos PDF
+const pdfSchema = new mongoose.Schema({
+  nombre: String,
+  folio: Number,
+  area: String,
+  archivo: Buffer
+});
 
-},{
-timestamps:true, 
-versionKey:false
-
-})
-
-export default model ('manual', Manualeschema);
+// exporta el modelo para los documentos PDF
+export default mongoose.model('PDF', pdfSchema);
