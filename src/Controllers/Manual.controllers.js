@@ -1,32 +1,25 @@
 import manual from "../models/model.manual";
+const fs = require('fs');
 const PDFDocument = require('pdfkit');
+const PDFParser = require('pdf-parse');
 //import PDF from'../models/model.manual';
 
 exports.uploadPDF = async (req, res) => {
   const nombre = req.body.nombre;
   const folio = req.body.folio;
   const area = req.body.area;
-  const archivo = req.body.buffer;
-  console.log(req.body.nombre);
+  const archivo = req.file;
+  
+  const archivoPath = archivo.path;
 
-  const doc = new PDFDocument();
+  const pdfDoc = fs.readFileSync(archivoPath);
 
-  doc.text(`nombre: ${nombre}`);
-  doc.text(`folio: ${folio}`);
-  doc.text(`area: ${area}`);
-
-  const buffer = await new Promise((resolve, reject) => {
-    const chunks = [];
-    doc.on('data', chunk => chunks.push(chunk));
-    doc.on('end', () => resolve(Buffer.concat(chunks)));
-    doc.end();
-  });
 
   const pdf = new manual({
     nombre: nombre,
     folio: folio,
     area: area,
-    archivo: buffer,
+    archivo: pdfDoc,
   });
 
   await pdf.save();
@@ -35,17 +28,6 @@ exports.uploadPDF = async (req, res) => {
   res.send('El archivo PDF se ha guardado correctamente en la base de datos.');
 };
 
-//export const createmanual = async (req, res) => {
-//  const { Name, Area, Folio, ImgUrl } = req.body;
-//
-//  const newprocedimiento = manual({ Name, Area, Folio, ImgUrl });
-//
-//  console.log(req.body);
-//
-//  const manualsave = await newprocedimiento.save();
-//
-//  res.status(201).json(manualsave);
-//};
 export const getmanuals = async (req, res) => {
   const manuals = await manual.find();
 

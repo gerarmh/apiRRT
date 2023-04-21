@@ -2,7 +2,8 @@ import { Router } from 'express'
 import * as Manualctrl from "../Controllers/Manual.controllers"
 import * as AuthV from "../middlewares/authVerify"
 import multer from 'multer';
-const uploads = multer({ dest: '../uploads' });
+import * as MVerify from '../middlewares/manualV';
+const uploads = multer({ dest: './uploads' });
 const router = Router()
 
 router.get('/', Manualctrl.getmanuals);
@@ -11,13 +12,10 @@ router.get('/:Folio', Manualctrl.getmanualById);
 
 router.get('/', Manualctrl.getmanualbyOCR);
 
-const express = require('express');
-
-
 const pdfController = require('../Controllers/Manual.controllers');
 
 // define un endpoint para guardar los archivos PDF
-router.post('/', [AuthV.verifytoken, AuthV.isBoth],  uploads.single('archivo'),pdfController.uploadPDF);
+router.post('/', [AuthV.verifytoken, AuthV.isBoth],  uploads.single('archivo'), MVerify.Mduplicity, pdfController.uploadPDF);
 
 module.exports = router;
 

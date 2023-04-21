@@ -19,7 +19,7 @@ try {
     //console.log(decodeduser)
     next();
 } catch (error) {
-return res.status(401).json({ message: 'Unautorized Transite of this Route'})    
+return res.status(405).json({ message: 'Unautorized Transite of this Route'})    
 }
 };
 
@@ -36,7 +36,7 @@ export const isBoth = async (req, res, next) => {
      }
    //  console.log(userS.rol);
           }
-    return res.status(403).json({message:'outside of your user limits'});
+    return res.status(426).json({message:'outside of your user limits'});
       
     //return res.status(500).send({ message: "error" });
     
@@ -51,7 +51,7 @@ export const isRevi = async (req, res, next) => {
     }
       return;
     }
-    return res.status(502).send({ message: "outside of your user limits" });
+    return res.status(426).send({ message: "outside of your user limits" });
   }
 
 

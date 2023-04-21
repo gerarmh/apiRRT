@@ -9,7 +9,7 @@ export const duplicity = async (req, res, next) => {
 
     const email = await User.findOne({employenumber: req.body.employenumber});
     if (email)
-      return res.status(400).json({ message: "The employenumber already exists" });
+      return res.status(409).json({ message: "The employenumber already exists" });
 
     next();
   } catch (error) {

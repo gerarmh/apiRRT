@@ -1,25 +1,15 @@
-//import PDF from '../models/model.manual';
-//export const Mduplicity = async (req, res, next) => {
-//    
-//      const nombre = req.body.nombre;
-//      const folio = req.body.folio;
-//      console.log(nombre);
-//      console.log(folio);
-//      
-//      const nameFound = await PDF.findOne(nombre);
-//      if (nameFound) {
-//        return res.status(400).json({ message: "The procedure name already exists" });
-//      }
-//  
-//      const folioFound = await PDF.findOne(folio);
-//      if (folioFound) {
-//        return res.status(400).json({ message: "The procedure folio already exists" });
-//      }
-//  
-//      next();
-//    
-//      
-//    };
+import manual from '../models/model.manual';
+export const Mduplicity = async (req, res, next) => {
+      
+      const folioFound = await manual.findOne({folio : req.body.folio});
+      if (folioFound) {
+        return res.status(400).json({ message: "The procedure folio already exists" });
+      }
+  
+      next();
+    
+      
+    };
 //
 //export const Mduplicity = async (req, res, next) => {
 //    try {
