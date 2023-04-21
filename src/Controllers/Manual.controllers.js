@@ -1,31 +1,32 @@
 import manual from "../models/model.manual";
-const fs = require('fs');
-const PDFDocument = require('pdfkit');
-const PDFParser = require('pdf-parse');
+const fs = require("fs");
+const PDFDocument = require("pdfkit");
+const PDFParser = require("pdf-parse");
 //import PDF from'../models/model.manual';
 
 exports.uploadPDF = async (req, res) => {
   const nombre = req.body.nombre;
   const folio = req.body.folio;
   const area = req.body.area;
+  const vigencia = req.body.vigencia;
   const archivo = req.file;
-  
+  console.log(req.body.vigencia);
   const archivoPath = archivo.path;
 
   const pdfDoc = fs.readFileSync(archivoPath);
-
 
   const pdf = new manual({
     nombre: nombre,
     folio: folio,
     area: area,
+    vigencia: vigencia,
     archivo: pdfDoc,
   });
 
   await pdf.save();
   console.log();
 
-  res.send('El archivo PDF se ha guardado correctamente en la base de datos.');
+  res.send("El archivo PDF se ha guardado correctamente en la base de datos.");
 };
 
 export const getmanuals = async (req, res) => {
@@ -34,7 +35,7 @@ export const getmanuals = async (req, res) => {
   res.json(manuals);
 };
 export const getmanualById = async (req, res) => {
-  const manuals = await manual.findOne({Folio:req.params.Folio});
+  const manuals = await manual.findOne({ Folio: req.params.Folio });
   res.status(200).json(manuals);
 };
 

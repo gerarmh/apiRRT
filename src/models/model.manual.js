@@ -5,6 +5,7 @@ const pdfSchema = new mongoose.Schema({
   nombre: String,
   folio: Number,
   area: String,
+  vigencia: String,
   archivo: Buffer
 });
 
