@@ -6,8 +6,11 @@ const pdfSchema = new mongoose.Schema({
   folio: Number,
   area: String,
   vigencia: String,
-  archivo: Buffer
-});
+  archivo: Buffer},{
+    timestamps:true,
+    versionKey:false
+  }
+);
 
 // exporta el modelo para los documentos PDF
 export default mongoose.model('PDF', pdfSchema);
