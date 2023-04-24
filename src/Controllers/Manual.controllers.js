@@ -9,6 +9,7 @@ exports.uploadPDF = async (req, res) => {
   const folio = req.body.folio;
   const area = req.body.area;
   const vigencia = req.body.vigencia;
+  const date = req.body.date;
   const archivo = req.file;
   console.log(req.body.vigencia);
   const archivoPath = archivo.path;
@@ -20,6 +21,7 @@ exports.uploadPDF = async (req, res) => {
     folio: folio,
     area: area,
     vigencia: vigencia,
+    date: date,
     archivo: pdfDoc,
   });
 

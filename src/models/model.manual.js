@@ -6,9 +6,12 @@ const pdfSchema = new mongoose.Schema({
   folio: Number,
   area: String,
   vigencia: String,
+  date:{
+    type: String,
+    default: () => new Date().toISOString().substr(0, 10)
+  },
   archivo: Buffer},{
-    timestamps:true,
-    versionKey:false
+    timestamps:true
   }
 );
 

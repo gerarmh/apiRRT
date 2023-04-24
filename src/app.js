@@ -4,6 +4,7 @@ import pkgs from "../package.json";
 import Manualroutes from "./routes/manual.routes";
 import UserRoutes from './routes/user.routes';
 import Authroutes from "./routes/auth.routes";
+import soliroutes from "./routes/soli.routes"
 import { createRoles } from "./libs/InitilUSP";
 import cors from 'cors';
 import multer from 'multer';
@@ -40,5 +41,9 @@ app.use("/api/manual", Manualroutes);
 app.use("/api/auth", Authroutes);
 
 app.use("/api/users", UserRoutes);
+
+app.use("/api/soli", soliroutes);
+
+
 
 export default app;

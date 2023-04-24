@@ -3,7 +3,12 @@ import * as Manualctrl from "../Controllers/Manual.controllers"
 import * as AuthV from "../middlewares/authVerify"
 import multer from 'multer';
 import * as MVerify from '../middlewares/manualV';
-const uploads = multer({ dest: './uploads' });
+const uploads = multer({
+    dest: './uploads',
+    limits: {
+      fileSize: { fileSize: 1024 * 1024 * 10 }  // 10 megabytes
+    }
+  });
 const router = Router()
 
 router.get('/', Manualctrl.getmanuals);
