@@ -6,5 +6,5 @@ mongoose.connect("mongodb://127.0.0.1/RRT", {
    
 })
 
-    .then(db => console.log('RRT IS ON LINE'))
+    .then(db => console.log('RRT API IS ON LINE'))
     .catch(error => console.log(error))

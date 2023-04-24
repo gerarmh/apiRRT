@@ -3,23 +3,38 @@ const soliSchema = new mongoose.Schema({
     nombredelsolicitante: String,
     folio: Number,
     area: String,
-    fechadesoli:Number,
-    fechadeefect:Number,
+    fechadesoli:{
+        type: String,
+        default: () => new Date().toISOString().substr(0, 10)
+      },
+    fechadeefect:{
+        type: String,
+        default: () => new Date().toISOString().substr(0, 10)
+      },
     razoncambio:String,
-    Alcance:String,
+    Alcance:Array,
     epytit:String,
     cambiod:String,
     cambioa:String,
-    capcitacion:String,
+    capacitacion:String,
+    capacitaciondesc:String,
     evaluacion:String,
+    evaluaciondesc:String,
     porqueno:String,
     requericalif:String,
     nocalif:Number,
     aprre:String,
     pruebas:String,
     Responsablemod:String,
-    fechaini:Number,
-    fechater:Number
+    fechaini:{
+        type: String,
+        default: () => new Date().toISOString().substr(0, 10)
+      },
+    fechater:{
+        type: String,
+        default: () => new Date().toISOString().substr(0, 10)
+      },
+      archivo:Buffer
 });
   
 export default mongoose.model('soli', soliSchema);
