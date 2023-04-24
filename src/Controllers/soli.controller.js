@@ -18,7 +18,7 @@ exports.uploadsoli = async (req, res) => {
 
   const razoncambio=req.body.razoncambio;
 
-  const Alcance=req.body.Alcance;
+  const Alcance=JSON.parse(req.body.Alcance);
 
   const epytit=req.body.epytit;
 
