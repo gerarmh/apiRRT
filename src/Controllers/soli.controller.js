@@ -97,7 +97,7 @@ exports.uploadsoli = async (req, res) => {
   });
 
   if (anexoDoc) {
-    soli.archivo = anexoDoc;
+    soli.anexo = anexoDoc;
   }
 
   await soli.save();

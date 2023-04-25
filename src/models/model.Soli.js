@@ -36,7 +36,8 @@ const soliSchema = new mongoose.Schema({
         default: () => new Date().toISOString().substr(0, 10)
       },
       estado:Array,
-      archivo:Buffer
+      archivo:Array,
+      anexo:Buffer
 });
   
 export default mongoose.model('soli', soliSchema);
