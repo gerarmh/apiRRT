@@ -51,15 +51,15 @@ export const singin = async (req, res) => {
       token: null,
       message: "Invalid Password",
     });
-  const token = jwt.sign({ id: userfound._id }, config.SECRET, {
+  const token = jwt.sign({ id: userfound._id, employenumber: userfound.employenumber, rol: userfound.rol }, config.SECRET, {
     expiresIn: 86400,
   });
-
+  const decoded = jwt.verify(token, config.SECRET);
 
   
 //  console.log(userfound.password)
 //  console.log(req.body.password)
 //  console.log(matchPassword)
-  res.json({ token})
+  res.json({ token, decoded })
   
 };

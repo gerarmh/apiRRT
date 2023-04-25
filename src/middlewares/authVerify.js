@@ -11,7 +11,7 @@ try {
     if (!token) return res.status(403).json({ message: "Any token provided" })
     const decoded = jwt.verify(token, config.SECRET);
     req.UserId=decoded.id;
-  
+
     const decodeduser = await user.findById(req.UserId, { password: 0 })
   
     if (!decodeduser) return res.status(404).json({ message: 'Any user Found'})
