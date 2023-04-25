@@ -62,7 +62,6 @@ export const isRevi = async (req, res, next) => {
 export const isSuper = async (req, res, next) => {
   const userS = await user.findById(req.UserId)
   const roles = await Rol.find({_id: {$in:userS.rol} });
-  console.log(roles)
   for (let i = 0; i < roles.length; i++) {
    if (roles[i].name === "SuperUser") {
      next();

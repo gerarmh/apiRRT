@@ -12,6 +12,7 @@ const uploads = multer({
   
 const router = Router()
 router.get('/', solicontrlr.getsoli);
+router.get('/:soliId', solicontrlr.getsolibyID);
 router.post('/', [AuthV.verifytoken],uploads.single('archivo'),solicontrlr.uploadsoli);
 module.exports = router;
 router.put('/:soliId', [AuthV.verifytoken, AuthV.isBoth ], solicontrlr.revision);

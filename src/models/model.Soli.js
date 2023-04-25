@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 const soliSchema = new mongoose.Schema({
     nombredelsolicitante: String,
+    userid: String,
     folio: Number,
     area: String,
     fechadesoli:{
@@ -34,6 +35,7 @@ const soliSchema = new mongoose.Schema({
         type: String,
         default: () => new Date().toISOString().substr(0, 10)
       },
+      estado:Array,
       archivo:Buffer
 });
   

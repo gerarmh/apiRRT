@@ -10,6 +10,8 @@ exports.uploadsoli = async (req, res) => {
   try{
  
   const nombredelsolicitante = req.body.nombredelsolicitante;
+
+  const userid = req.body.userid;
   
   const folio = req.body.folio;
   
@@ -53,22 +55,12 @@ exports.uploadsoli = async (req, res) => {
 
   const fechater=req.body.fechadeefect;
 
-
-          // Obtener los IDs de los usuarios con rol revisor
-    const revisores = await User.find({ rol: { $in: ['Revisor'] } });
-    console.log(revisores)
-    const revisoresIds = revisores.map((revisor) => revisor._id);
-
-    // Agregar los IDs de los usuarios con rol revisor al campo estado del objeto soli
-    soli.estado = revisoresIds;
-      // Obtener los IDs de los usuarios con rol revisor
-      //const userR = await User.find();
-      //const roles = await Rol.find({id:{$in: userR.rol}})
-      //console.log(roles)
-      //
-      //userR.forEach(user => {
-        
-      // Agregar los IDs de los usuarios con rol revisor al campo estado del objeto soli
+  let revisoresIds = [];
+  const roles = await Rol.find({name:{$in: ["Revisor", "SuperUser"]}});
+  const userR = await User.find({ rol: {$in: roles}});
+  userR.forEach(user => {
+    revisoresIds.push(user.id);
+      });
 
   let anexoDoc;
 
@@ -79,6 +71,7 @@ exports.uploadsoli = async (req, res) => {
 
   const soli = new soliM({
     nombredelsolicitante: nombredelsolicitante,
+    userid:userid,
     folio: folio,
     area: area,
     fechadesoli:fechadesoli,
@@ -100,47 +93,58 @@ exports.uploadsoli = async (req, res) => {
     Responsablemod:Responsablemod,
     fechaini:fechaini,
     fechater:fechater,
-    archivo: anexoDoc
+    estado:revisoresIds
   });
+
+  if (anexoDoc) {
+    soli.archivo = anexoDoc;
+  }
 
   await soli.save();
-  
-  fs.unlink(req.file.path, (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(`El archivo ${req.file.path} ha sido eliminado correctamente`);
-  });
+
+  if (req.file){
+    fs.unlink(req.file.path, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(`El archivo ${req.file.path} ha sido eliminado correctamente`);
+    });
+  }
 
   console.log();
+
   res.send("El archivo PDF se agrego correctamente");
+  
   }catch(error){
     return res.status(401).json('No se pudo guardar el archivo')
 
   }
 
 };
-//export const createsoli = async (req, res) => {
-//    const {nombredelsolicitante,folio,area,fechadesoli,fechadeefect,razoncambio,Alcance,epytit,cambiod,cambioa,capcitacion,evaluacion,porqueno,requericalif,nocalif,aprre,pruebas,Responsablemod,fechaini,fechater} = req.body;
-//    const newprocedimiento = soliM({nombredelsolicitante,folio,area,fechadesoli,fechadeefect,razoncambio,Alcance,epytit,cambiod,cambioa,capcitacion,evaluacion,porqueno,requericalif,nocalif,aprre,pruebas,Responsablemod,fechaini,fechater});
-//    console.log(req.body);
-//    const solisave = await newprocedimiento.save();
-//    res.status(201).json(solisave);
-//  };
 
 export const revision = async (req, res) => {
-    const Updatedmanual = await soliM.findByIdAndUpdate(
-      req.params.soliId,
-      req.body,
-      {
-        new: true,
-      }
+  try {
+    const updatedSoli = await soliM.findOneAndUpdate(
+      { _id: req.params.soliId },
+      { $pull: { estado: req.body.userid } },
+      { new: true }
     );
-    res.status(200).json(Updatedmanual);
-  };
+    res.status(200).json(updatedSoli);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el documento' });
+  }
+};
+
 
 export const getsoli = async (req, res) => {
+    const manuals = await soliM.find();
+  
+    res.json(manuals);
+  };
+
+  export const getsolibyID = async (req, res) => {
     const manuals = await soliM.find();
   
     res.json(manuals);
