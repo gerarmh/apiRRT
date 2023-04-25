@@ -26,6 +26,16 @@ exports.uploadPDF = async (req, res) => {
   });
 
   await pdf.save();
+
+    // Eliminar archivo de la ruta después de guardarlo en la base de datos
+    fs.unlink(archivoPath, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(`El archivo ${archivoPath} ha sido eliminado correctamente`);
+    });
+
   console.log();
 
   res.send("El archivo PDF se ha guardado correctamente en la base de datos.");

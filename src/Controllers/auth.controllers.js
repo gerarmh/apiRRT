@@ -51,7 +51,7 @@ export const singin = async (req, res) => {
       token: null,
       message: "Invalid Password",
     });
-  const token = jwt.sign({ id: userfound._id, employenumber: userfound.employenumber, rol: userfound.rol }, config.SECRET, {
+  const token = jwt.sign({ id: userfound._id, username: userfound.username, rol: userfound.rol }, config.SECRET, {
     expiresIn: 86400,
   });
   const decoded = jwt.verify(token, config.SECRET);

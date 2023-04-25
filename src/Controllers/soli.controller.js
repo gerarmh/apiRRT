@@ -1,4 +1,7 @@
 import soliM from "../models/model.soli";
+import User from "../models/model.user";
+import Rol from "../models/model.roles";
+import { userInfo } from "os";
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 const PDFParser = require("pdf-parse");
@@ -50,12 +53,29 @@ exports.uploadsoli = async (req, res) => {
 
   const fechater=req.body.fechadeefect;
 
-  const archivo = req.file;
-  
-  const archivoPath = archivo.path;
-  
 
-  const anexoDoc = fs.readFileSync(archivoPath);
+          // Obtener los IDs de los usuarios con rol revisor
+    const revisores = await User.find({ rol: { $in: ['Revisor'] } });
+    console.log(revisores)
+    const revisoresIds = revisores.map((revisor) => revisor._id);
+
+    // Agregar los IDs de los usuarios con rol revisor al campo estado del objeto soli
+    soli.estado = revisoresIds;
+      // Obtener los IDs de los usuarios con rol revisor
+      //const userR = await User.find();
+      //const roles = await Rol.find({id:{$in: userR.rol}})
+      //console.log(roles)
+      //
+      //userR.forEach(user => {
+        
+      // Agregar los IDs de los usuarios con rol revisor al campo estado del objeto soli
+
+  let anexoDoc;
+
+  if (req.file) {
+    const archivoPath = req.file.path;
+    anexoDoc = fs.readFileSync(archivoPath);
+  }
 
   const soli = new soliM({
     nombredelsolicitante: nombredelsolicitante,
@@ -84,6 +104,15 @@ exports.uploadsoli = async (req, res) => {
   });
 
   await soli.save();
+  
+  fs.unlink(req.file.path, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(`El archivo ${req.file.path} ha sido eliminado correctamente`);
+  });
+
   console.log();
   res.send("El archivo PDF se agrego correctamente");
   }catch(error){
