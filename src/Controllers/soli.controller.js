@@ -55,6 +55,8 @@ exports.uploadsoli = async (req, res) => {
 
   const fechater=req.body.fechadeefect;
 
+  const aprobacionsoli = false;
+
   let revisoresIds = [];
   const roles = await Rol.find({name:{$in: ["Revisor", "SuperUser"]}});
   const userR = await User.find({ rol: {$in: roles}});
@@ -93,6 +95,7 @@ exports.uploadsoli = async (req, res) => {
     Responsablemod:Responsablemod,
     fechaini:fechaini,
     fechater:fechater,
+    aprobacions:aprobacionsoli,
     estado:revisoresIds
   });
 
