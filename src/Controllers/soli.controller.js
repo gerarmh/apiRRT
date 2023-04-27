@@ -140,6 +140,21 @@ export const revision = async (req, res) => {
   }
 };
 
+export const cambios = async (req, res) => {
+  console.log(req.files)
+  //try {
+  //  const updatedSoli = await soliM.findOneAndUpdate(
+  //    { _id: req.params.soliId },
+  //    { $pull: { estado: req.body.userid } },
+  //    { new: true }
+  //  );
+  //  res.status(200).json(updatedSoli);
+  //} catch (error) {
+  //  console.error(error);
+  //  res.status(500).json({ message: 'Error al actualizar el documento' });
+  //}
+};
+
 
 export const getsoli = async (req, res) => {
     const manuals = await soliM.find();
@@ -148,7 +163,7 @@ export const getsoli = async (req, res) => {
   };
 
   export const getsolibyID = async (req, res) => {
-    const manuals = await soliM.find();
+    const manuals = await soliM.findOne({_id: req.params.soliId});
   
     res.json(manuals);
   };
