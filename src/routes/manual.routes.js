@@ -13,7 +13,7 @@ const router = Router()
 
 router.get('/', Manualctrl.getmanuals);
 
-router.get('/:Folio', Manualctrl.getmanualById);
+router.get('/:manualId', Manualctrl.getmanualById);
 
 router.get('/', Manualctrl.getmanualbyOCR);
 

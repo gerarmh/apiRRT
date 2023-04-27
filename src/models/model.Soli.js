@@ -14,7 +14,7 @@ const soliSchema = new mongoose.Schema({
       },
     razoncambio:String,
     Alcance:Array,
-    epytit:String,
+    epytit:Array,
     cambiod:String,
     cambioa:String,
     capacitacion:String,

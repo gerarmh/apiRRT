@@ -47,7 +47,7 @@ export const getmanuals = async (req, res) => {
   res.json(manuals);
 };
 export const getmanualById = async (req, res) => {
-  const manuals = await manual.findOne({ Folio: req.params.Folio });
+  const manuals = await manual.findOne({ _id: req.params.manualId });
   res.status(200).json(manuals);
 };
 
