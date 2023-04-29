@@ -37,7 +37,9 @@ const soliSchema = new mongoose.Schema({
       },
       estado:Array,
       aprobacions:Boolean,
-      archivo:Array,
+      archivo:{
+        type: [Buffer],
+      },
       anexo:Buffer
 });
   

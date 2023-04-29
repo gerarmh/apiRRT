@@ -2,7 +2,8 @@ import soliM from "../models/model.soli";
 import User from "../models/model.user";
 import Rol from "../models/model.roles";
 import { userInfo } from "os";
-const fs = require("fs");
+const fs = require("fs").promises;
+const reader = require("fs");
 const PDFDocument = require("pdfkit");
 const PDFParser = require("pdf-parse");
 
@@ -68,7 +69,7 @@ exports.uploadsoli = async (req, res) => {
 
   if (req.file) {
     const archivoPath = req.file.path;
-    anexoDoc = fs.readFileSync(archivoPath);
+    anexoDoc = reader.readFileSync(archivoPath);
   }
 
   const soli = new soliM({
@@ -141,19 +142,51 @@ export const revision = async (req, res) => {
 };
 
 export const cambios = async (req, res) => {
-  console.log(req.files)
-  //try {
-  //  const updatedSoli = await soliM.findOneAndUpdate(
-  //    { _id: req.params.soliId },
-  //    { $pull: { estado: req.body.userid } },
-  //    { new: true }
-  //  );
-  //  res.status(200).json(updatedSoli);
-  //} catch (error) {
-  //  console.error(error);
-  //  res.status(500).json({ message: 'Error al actualizar el documento' });
-  //}
+  const id = req.params.soliId; // Obtén el ID de la solicitud a través de los parámetros de la solicitud
+  const archivos = req.files; // Obtén la lista de archivos recibidos
+
+  try {
+    // Lee el contenido de cada archivo y almacénalos como buffers en un arreglo
+    const buffers = await Promise.all(archivos.map(async archivo => {
+      const contenido = await fs.readFile(archivo.path);
+      return contenido;
+    }));
+
+    // Actualiza el campo "archivo" del documento correspondiente en la colección "soliM" con el arreglo de buffers
+    const result = await soliM.findByIdAndUpdate(id, { archivo: buffers }, { new: true });
+
+    archivos.forEach(archivo => {
+    if (archivo){
+      fs.unlink(archivo.path, (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      });
+    }
+  })
+    
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar los archivos' });
+  }
 };
+
+export const aprobacions = async (req, res) => {
+  try {
+    const aprosoli = await soliM.findOneAndUpdate(
+      { _id: req.params.soliId },
+      { aprobacions: true },
+      { new: true }
+    );
+    res.status(200).json(aprosoli);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el documento' });
+  }
+};
+
 
 
 export const getsoli = async (req, res) => {
