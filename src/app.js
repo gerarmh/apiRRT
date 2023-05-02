@@ -7,15 +7,11 @@ import Authroutes from "./routes/auth.routes";
 import soliroutes from "./routes/soli.routes"
 import { createRoles } from "./libs/InitilUSP";
 import cors from 'cors';
-import multer from 'multer';
-const PDFDocument = require('pdfkit');
+
 
 const app = express();
 createRoles();
 app.set("pkgs", pkgs);
-
-const storage = multer.memoryStorage();
-const uploads = multer({ storage: storage });
 
 app.use(express.json());
 

@@ -1,8 +1,5 @@
 import manual from "../models/model.manual";
 const fs = require("fs");
-const PDFDocument = require("pdfkit");
-const PDFParser = require("pdf-parse");
-//import PDF from'../models/model.manual';
 
 exports.uploadPDF = async (req, res) => {
   const nombre = req.body.nombre;
@@ -11,10 +8,10 @@ exports.uploadPDF = async (req, res) => {
   const vigencia = req.body.vigencia;
   const date = req.body.date;
   const archivo = req.file;
-  console.log(req.body.vigencia);
   const archivoPath = archivo.path;
-
   const pdfDoc = fs.readFileSync(archivoPath);
+
+
 
   const pdf = new manual({
     nombre: nombre,
@@ -35,7 +32,7 @@ exports.uploadPDF = async (req, res) => {
       }
       console.log(`El archivo ${archivoPath} ha sido eliminado correctamente`);
     });
-
+  
   console.log();
 
   res.send("El archivo PDF se ha guardado correctamente en la base de datos.");
@@ -52,15 +49,20 @@ export const getmanualById = async (req, res) => {
 };
 
 export const updatemanualById = async (req, res) => {
-  const Updatedmanual = await manual.findByIdAndUpdate(
-    req.params.manualId,
-    req.body,
-    {
-      new: true,
-    }
-  );
-  res.status(200).json(Updatedmanual);
+  const id = req.params.manualId;
+  console.log(id)
+
+  try {
+    const Updatedmanual = await manual.findByIdAndUpdate(id, {vigencia: "obsoleto"}, {new: true});
+      res.status(200).json(Updatedmanual);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message: 'Ha ocurrido un error al actualizar'});
+  }
+
 };
+
+
 export const deletemanualById = async (req, res) => {
   const { manualId } = req.params;
 
