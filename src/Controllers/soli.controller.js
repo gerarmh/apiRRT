@@ -58,6 +58,8 @@ exports.uploadsoli = async (req, res) => {
 
   const aprobacionsoli = false;
 
+  const concluido = false;
+
   let revisoresIds = [];
   const roles = await Rol.find({name:{$in: ["Revisor", "SuperUser"]}});
   const userR = await User.find({ rol: {$in: roles}});
@@ -97,6 +99,7 @@ exports.uploadsoli = async (req, res) => {
     fechaini:fechaini,
     fechater:fechater,
     aprobacions:aprobacionsoli,
+    concluido:concluido,
     estado:revisoresIds
   });
 
@@ -187,6 +190,19 @@ export const aprobacions = async (req, res) => {
   }
 };
 
+export const concluido = async (req, res) => {
+  try {
+    const concluir = await soliM.findOneAndUpdate(
+      { _id: req.params.soliId },
+      { concluido: true },
+      { new: true }
+    );
+    res.status(200).json(concluir);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el documento' });
+  }
+};
 
 
 export const getsoli = async (req, res) => {
