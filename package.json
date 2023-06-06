@@ -10,7 +10,7 @@
     "start": "node build/index.js"
   },
   "keywords": [],
-  "author": "Gerardo Mejia Hernandez",
+  "author": "Gerardo Mejia Hernandez&Jose de Dios del Carmen de la Cruz",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
