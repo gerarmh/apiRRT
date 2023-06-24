@@ -12,11 +12,11 @@ const values = await Promise.all([
     new modelroles({name:'SuperUser'}).save(),//IsSuper
     new modelroles({name:'Revisor'}).save(),//IsRevi
     new modelroles({name:'CommonUser'}).save(),//IsCommon
+    new modelroles({name:'Visualizador'}).save(),//IsV
     
-      
 ]);
   console.log(values);
-}catch (error){
+}catch (error){ 
     console.error(error);
 }
 };
