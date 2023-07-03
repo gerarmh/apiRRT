@@ -134,10 +134,29 @@ export const revision = async (req, res) => {
   try {
     const updatedSoli = await soliM.findOneAndUpdate(
       { _id: req.params.soliId },
-      { $pull: { estado: req.body.userid } },
+      {
+        $pull: { estado: req.body.userid },
+        $push: { revisados: req.body.username }
+      },
       { new: true }
     );
     res.status(200).json(updatedSoli);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el documento' });
+  }
+};
+
+export const rechazar = async (req, res) => {
+  try {
+    const RechazarSoli = await soliM.findOneAndUpdate(
+      { _id: req.params.soliId },
+      {
+        $push: { rechazaron: req.body.username }
+      },
+      { new: true }
+    );
+    res.status(200).json(RechazarSoli);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al actualizar el documento' });
@@ -156,7 +175,7 @@ export const cambios = async (req, res) => {
     }));
 
     // Actualiza el campo "archivo" del documento correspondiente en la colección "soliM" con el arreglo de buffers
-    const result = await soliM.findByIdAndUpdate(id, { archivo: buffers }, { new: true });
+    const result = await soliM.findByIdAndUpdate(id, { archivo: buffers, comentarios: '' }, { new: true });
 
     archivos.forEach(archivo => {
     if (archivo){
@@ -203,6 +222,22 @@ export const concluido = async (req, res) => {
     res.status(500).json({ message: 'Error al actualizar el documento' });
   }
 };
+
+export const comentarios = async (req, res) => {
+  console.log(req.body.textarea)
+  try {
+    const comentar = await soliM.findOneAndUpdate(
+      { _id: req.params.soliId },
+      { comentarios: req.body.textarea },
+      { new: true }
+    );
+    res.status(200).json(comentar);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el documento' });
+  }
+};
+
 
 
 export const getsoli = async (req, res) => {

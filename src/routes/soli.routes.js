@@ -17,6 +17,7 @@ router.put('/:soliId', [AuthV.verifytoken, AuthV.isBoth ], solicontrlr.revision)
 router.put('/:soliId/:userId', [AuthV.verifytoken, AuthV.isSuper ],uploads.array('archivo'), solicontrlr.cambios);
 router.put('/:soliId/:soliFolio/:soliApro', [AuthV.verifytoken], solicontrlr.aprobacions);
 router.put('/:soliId/:soliFolio/:soliSuper/:userId', [AuthV.verifytoken, AuthV.isSuper], solicontrlr.concluido);
-
+router.put('/:soliId/:soliFolio/:soliRol/:Username/:UserId', [AuthV.verifytoken, AuthV.isBoth], solicontrlr.rechazar);
+router.put('/:soliId/:soliFolio/:soliRol/:Username/:UserId/:Area', [AuthV.verifytoken], solicontrlr.comentarios);
 module.exports = router;
 export default router;
