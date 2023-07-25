@@ -19,5 +19,7 @@ router.put('/:soliId/:soliFolio/:soliApro', [AuthV.verifytoken], solicontrlr.apr
 router.put('/:soliId/:soliFolio/:soliSuper/:userId', [AuthV.verifytoken, AuthV.isSuper], solicontrlr.concluido);
 router.put('/:soliId/:soliFolio/:soliRol/:Username/:UserId', [AuthV.verifytoken, AuthV.isBoth], solicontrlr.rechazar);
 router.put('/:soliId/:soliFolio/:soliRol/:Username/:UserId/:Area', [AuthV.verifytoken], solicontrlr.comentarios);
+router.put('/:soliId/:soliFolio/:soliRol/:Username/:UserId/:Area/:Number', [AuthV.verifytoken, AuthV.isSuper], solicontrlr.actualizar);
+
 module.exports = router;
 export default router;

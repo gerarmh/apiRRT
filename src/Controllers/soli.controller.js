@@ -224,7 +224,6 @@ export const concluido = async (req, res) => {
 };
 
 export const comentarios = async (req, res) => {
-  console.log(req.body.textarea)
   try {
     const comentar = await soliM.findOneAndUpdate(
       { _id: req.params.soliId },
@@ -232,6 +231,20 @@ export const comentarios = async (req, res) => {
       { new: true }
     );
     res.status(200).json(comentar);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el documento' });
+  }
+};
+
+export const actualizar = async (req, res) => {
+  try {
+    const folio = await soliM.findOneAndUpdate(
+      { _id: req.params.soliId },
+      { folio: req.body.folio },
+      { new: true }
+    );
+    res.status(200).json(folio);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al actualizar el documento' });
